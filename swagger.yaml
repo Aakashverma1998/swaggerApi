@@ -1,0 +1,229 @@
+swagger: "2.0"
+info:
+  description: "Swagger"
+  version: "1.0.0"
+  title: "Swagger"
+  contact:
+    email: "abc@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: ""
+# basePath: ""
+tags:
+  - name: "User"
+    description: "Everything about User"
+    externalDocs:
+      description: "Find out more"
+      url: "http://swagger.io"
+schemes:
+  - "http"
+paths:
+  /api/user:
+    post:
+      tags:
+        - "User"
+      summary: "Add a new User"
+      description: ""
+      operationId: "addUser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+      responses:
+        "200":
+          description: "Invalid input"
+      security:
+        - Userssstore_auth:
+            - "write:User"
+            - "read:User"
+  /api/user/login:
+    post:
+      tags:
+      - "User"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/user"
+      responses:
+        "200":
+          description: "Invalid input"      
+      security:
+        - Userssstore_auth:
+          - "write:User"
+          - "read:User" 
+  /api/user/token:
+    post:
+      tags:
+        - "User"
+      summary: "Authorization token"
+      tags: [user]
+      operationId: GetCart
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: "Invalid input" 
+  /api/company:
+    post:
+      tags:
+        - "Company"
+      summary: "Add a new company"
+      tags: [user]
+      operationId: GetCart
+      # note the "security" tag created on the restricted endpoint
+      security:
+        - Bearer: []
+      description: ""
+      operationId: "addUser"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Company"
+        - in: "FormData"
+          name: "upfile"
+          type: "file"
+          description: "The file to upload"
+          required: true
+          type: file
+      responses:
+        "200":
+          description: "Invalid input"
+      security:
+        - Userssstore_auth:
+            - "write:Company"
+            - "read:Company" 
+  /api/company/:id:
+    put:
+      tags:
+        - "Company"
+      summary: "Update company"
+      tags: [user]
+      operationId: update
+      security:
+        - Bearer: []
+      description: ""
+      operationId: "update"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "companyId"
+          required: true
+          in: "path"
+        - in: "body"
+          name: "file"
+          description: "Tutorials object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/update"
+        - in: "FormData"
+          name: "upfile"
+          type: "file"
+          description: "The file to upload"
+          required: false
+          type: file
+      responses:
+        "200":
+          description: "The tutorial has been sucessfully updated"
+      security:
+        - Tutorialsstore_auth:
+            - "write:Company"
+            - "read:Company"
+securityDefinitions:
+  Bearer:  
+    type: apiKey    
+    name: Authorization    
+    in: header
+    scopes:
+      write:user: "modify users in your account"
+      read:user: "read your users"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+
+definitions:
+  User:
+    type: "object"
+    properties:
+      userName:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+      password:
+        type: "string"
+      userType:
+        type: "string"
+      dob:
+        type: "string"
+    xml:
+      name: "User"
+  user:
+    type: object
+    required: [email,password]
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  Company:
+    type: "object"
+    properties:
+      Username:
+        type: "string"
+      email:
+        type: "string"
+      address:
+        type: "string"
+      pincode:
+        type: "string"
+  update:
+    type: "object"
+    properties:
+      Username:
+        type: "string"
+      email:
+        type: "string"
+      address:
+        type: "string"
+      pincode:
+        type: "string"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
