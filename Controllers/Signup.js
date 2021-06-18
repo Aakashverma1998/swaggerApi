@@ -37,8 +37,8 @@ module.exports = {
 
         } catch (err) {
             logger.error(err);
-            res.status(500).json({
-                message: "All field's are required..."
+            res.status(400).json({
+                message: error
             })
 
         }
