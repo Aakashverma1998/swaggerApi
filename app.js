@@ -15,11 +15,6 @@ var corsOptions = {
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(User_route)
-    
-app.use(function(req, res, next) {
-    (req.body, req.files);
-   next();
- });
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors(corsOptions))
 app.use("/", express.static("upload/logo"))
